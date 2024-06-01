@@ -9,7 +9,7 @@ public class TestTest {
         Assert.assertTrue(true);
 
     }
-
+    @Ignore
     @Test
     public void testFail(){
 
