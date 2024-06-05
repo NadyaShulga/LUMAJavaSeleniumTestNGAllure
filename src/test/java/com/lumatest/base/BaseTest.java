@@ -28,7 +28,6 @@ public abstract class BaseTest {
             this.driver = new ChromeDriver();
         }
     }
-
     public WebDriver getDriver() {
 
         return this.driver;

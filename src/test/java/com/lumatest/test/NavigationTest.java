@@ -52,5 +52,6 @@ public class NavigationTest extends BaseTest {
         Assert.assertEquals(actualURL, expectedURL);
         Allure.step("Verify actualTitle as expected");
         Assert.assertEquals(actualTitle, expectedTitle);
+
     }
 }

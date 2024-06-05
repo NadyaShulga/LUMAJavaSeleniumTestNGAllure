@@ -48,7 +48,6 @@ public class TestData {
                 {BASE_URL, GEAR_MENU,GEAR_URL, GEAR_TITLE},
                 {BASE_URL, TRAINING_MENU,TRAINING_URL, TRAINING_TITLE},
                 {BASE_URL, SALE_MENU,SALE_URL, SALE_TITLE},
-
         };
     }
 }
