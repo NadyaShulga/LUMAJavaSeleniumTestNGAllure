@@ -2,7 +2,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-public class TestTest {
+public class FrameworkTest {
     @Test
     public void testPass(){
 

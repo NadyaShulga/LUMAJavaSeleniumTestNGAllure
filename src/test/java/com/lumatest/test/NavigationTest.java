@@ -9,10 +9,11 @@ import org.testng.annotations.Test;
 
 public class NavigationTest extends BaseTest {
 
-    @Test(description = "TC-01 Open Base LUMA_URL")
+    @Test(  groups = {"Smoke", "Regression"},
+            description = "TC-01 Open Base LUMA_URL")
     @Story("Navigation")
     @Severity(SeverityLevel.BLOCKER)
-    @Description("To verify that the URL on the website opens correctly by ensuring that")
+    @Description("To verify that the URL on the application are correct and as expected")
     @Link(TestData.BASE_URL)
     public void testOpenBaseURL() {
         Allure.step("SetUp expected result");
@@ -32,7 +33,7 @@ public class NavigationTest extends BaseTest {
         Assert.assertEquals(actualTitle, expectedTitle);
     }
 
-    @Test(
+    @Test(  groups = {"Smoke", "Regression"},
             description = "TC-02 Top Menu Navigation",
             dataProvider = "navigationData",
             dataProviderClass = TestData.class
