@@ -61,7 +61,6 @@ public class DriverUtils {
 //        firefoxDriver.executeCdpCommand(
 //                "Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language",
 //                        "en-US,en;q=0.9")));
-
         return firefoxDriver;
     }
 
@@ -75,7 +74,6 @@ public class DriverUtils {
             }
             default -> {
                 return null;
-
             }
         }
     }

@@ -21,7 +21,6 @@ public abstract class BaseTest {
 //        WebDriverManager.chromiumdriver().setup();
 //        WebDriverManager.iedriver().setup();
     }
-
     @Parameters("browser")
     @BeforeMethod()
     protected void setupDriver(String browser) {
