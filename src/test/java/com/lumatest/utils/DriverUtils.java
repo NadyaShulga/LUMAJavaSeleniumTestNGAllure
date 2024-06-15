@@ -56,12 +56,7 @@ public class DriverUtils {
             driver.quit();
         }
 
-        FirefoxDriver firefoxDriver = new FirefoxDriver(firefoxOptions);
-//        firefoxDriver.executeCdpCommand("Network.enable", Map.of());
-//        firefoxDriver.executeCdpCommand(
-//                "Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language",
-//                        "en-US,en;q=0.9")));
-        return firefoxDriver;
+        return new FirefoxDriver(firefoxOptions);
     }
 
     public static WebDriver createDriver(String browser, WebDriver driver) {

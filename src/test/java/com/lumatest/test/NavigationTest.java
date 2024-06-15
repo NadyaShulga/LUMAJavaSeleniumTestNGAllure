@@ -10,7 +10,9 @@ import org.testng.annotations.Test;
 public class NavigationTest extends BaseTest {
 
     @Test(  groups = {"Smoke", "Regression"},
-            description = "TC-01 Open Base LUMA_URL")
+            description = "TC-01 Open Base LUMA_URL",
+            testName= "NAVIGATION | Open Base URL"
+    )
     @Story("Navigation")
     @Severity(SeverityLevel.BLOCKER)
     @Description("To verify that the URL on the application are correct and as expected")
@@ -23,11 +25,11 @@ public class NavigationTest extends BaseTest {
         Allure.step("Open BaseURL");
         getDriver().get(TestData.BASE_URL);
 
-        Allure.step("Collect actualURL, actualTitle");
+        Allure.step("Collect actual URL and actual title.");
         final String actualURL = getDriver().getCurrentUrl();
         final String actualTitle = getDriver().getTitle();
 
-        Allure.step("Verify actualURL as expected");
+        Allure.step("Verify that the actual URL is as expected");
         Assert.assertEquals(actualURL, expectedURL);
         Allure.step("Verify actualTitle as expected");
         Assert.assertEquals(actualTitle, expectedTitle);
@@ -36,7 +38,8 @@ public class NavigationTest extends BaseTest {
     @Test(  groups = {"Smoke", "Regression"},
             description = "TC-02 Top Menu Navigation",
             dataProvider = "navigationData",
-            dataProviderClass = TestData.class
+            dataProviderClass = TestData.class,
+            testName = "NAVIGATION | Navigate to top menus"
     )
     @Story("Navigation")
     @Severity(SeverityLevel.CRITICAL)
@@ -46,21 +49,19 @@ public class NavigationTest extends BaseTest {
     public void testNavigationMenu(String baseURL, By navbarMenu, String expectedURL, String expectedTitle) {
                                   //{BASE_URL,     SALE_MENU,      SALE_URL,           SALE_TITLE}
 
-        Allure.step("SetUp expected result");
-
         Allure.step("Open BASE URL");
         getDriver().get(baseURL);
 
         Allure.step("Click on " + navbarMenu.toString());
         getDriver().findElement(navbarMenu).click();
 
-        Allure.step("Collect actualURL, actualTitle");
+        Allure.step("Collect actual URL, actualTitle");
         final String actualURL = getDriver().getCurrentUrl();
         final String actualTitle = getDriver().getTitle();
 
-        Allure.step("Verify actualURL as expected");
+        Allure.step("Verify actual URL as expected");
         Assert.assertEquals(actualURL, expectedURL);
-        Allure.step("Verify actualTitle as expected");
+        Allure.step("Verify actual Title as expected");
         Assert.assertEquals(actualTitle, expectedTitle);
     }
     }
