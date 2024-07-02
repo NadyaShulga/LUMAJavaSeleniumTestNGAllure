@@ -8,7 +8,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class NavigationTest extends BaseTest {
-
     @Test(  groups = {"Smoke", "Regression"},
             description = "TC-01 Open Base LUMA_URL")
     @Story("Navigation")
@@ -32,7 +31,6 @@ public class NavigationTest extends BaseTest {
         Allure.step("Verify actualTitle as expected");
         Assert.assertEquals(actualTitle, expectedTitle);
     }
-
     @Test(  groups = {"Smoke", "Regression"},
             description = "TC-02 Top Menu Navigation",
             dataProvider = "navigationData",
