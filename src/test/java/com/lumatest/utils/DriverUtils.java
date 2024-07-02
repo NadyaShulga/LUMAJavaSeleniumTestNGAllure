@@ -3,14 +3,18 @@ package com.lumatest.utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chromium.ChromiumOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.testng.Reporter;
 
 import java.util.Map;
 
-public class DriverUtils {
+public class DriverUtils{
+
     private static final ChromeOptions chromeOptions;
     private static final FirefoxOptions firefoxOptions;
+    private static final ChromiumOptions<ChromeOptions> chromiumOptions;
 
     static {
         chromeOptions = new ChromeOptions();
@@ -31,24 +35,36 @@ public class DriverUtils {
         firefoxOptions.addArguments("--disable-gpu");
         firefoxOptions.addArguments("--no-sandbox");
         firefoxOptions.addArguments("--disable-dev-shm-usage");
-        firefoxOptions.addArguments("--disable-web-security");
-        firefoxOptions.addArguments("--allow-running-insecure-content");
-        firefoxOptions.addArguments("--ignore-certificate-errorfirefox");
+
+        chromiumOptions = chromeOptions;
+
     }
 
-    //for Luma
+    //  for luma web app
     private static WebDriver createChromeDriver(WebDriver driver) {
         if (driver != null) {
             driver.quit();
         }
-
         ChromeDriver chromeDriver = new ChromeDriver(chromeOptions);
         chromeDriver.executeCdpCommand("Network.enable", Map.of());
         chromeDriver.executeCdpCommand(
-                "Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language",
-                        "en-US,en;q=0.9")));
+                "Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language", "en-US,en;q=0.9"))
+        );
 
-        return chromeDriver;
+        return chromeDriver ;
+    }
+
+    private static WebDriver createChromiumDriver(WebDriver driver) {
+        if (driver != null) {
+            driver.quit();
+        }
+        ChromeDriver chromeDriver = new ChromeDriver((ChromeOptions) chromiumOptions);
+        chromeDriver.executeCdpCommand("Network.enable", Map.of());
+        chromeDriver.executeCdpCommand(
+                "Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language", "en-US,en;q=0.9"))
+        );
+
+        return chromeDriver ;
     }
 
     private static WebDriver createFirefoxDriver(WebDriver driver) {
@@ -56,26 +72,41 @@ public class DriverUtils {
             driver.quit();
         }
 
-        FirefoxDriver firefoxDriver = new FirefoxDriver(firefoxOptions);
-//        firefoxDriver.executeCdpCommand("Network.enable", Map.of());
-//        firefoxDriver.executeCdpCommand(
-//                "Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language",
-//                        "en-US,en;q=0.9")));
-        return firefoxDriver;
+        return new FirefoxDriver(firefoxOptions);
     }
 
     public static WebDriver createDriver(String browser, WebDriver driver) {
-        switch (browser) {
+        switch(browser) {
             case "chrome" -> {
                 return createChromeDriver(driver);
             }
             case "firefox" -> {
                 return createFirefoxDriver(driver);
             }
+            case "chromium" -> {
+                return createChromiumDriver(driver);
+            }
             default -> {
                 return null;
             }
         }
     }
-}
 
+    // for open car web app
+//    public static WebDriver createdChromeDriver (WebDriver driver) {
+//        if(driver == null){
+//
+//            return new ChromeDriver(chromeOptions);
+//        } else {
+//            driver.quit();
+//
+//            return new ChromeDriver(chromeOptions);
+//        }
+//    }
+
+//    private void createFirefoxDriver () {
+//        if(this.driver == null){
+//           this.driver = new FirefoxDriver();
+//        }
+//    }
+}

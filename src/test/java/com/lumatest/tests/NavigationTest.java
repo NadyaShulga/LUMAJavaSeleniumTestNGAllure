@@ -1,4 +1,4 @@
-package com.lumatest.test;
+package com.lumatest.tests;
 
 import com.lumatest.base.BaseTest;
 import com.lumatest.data.TestData;
