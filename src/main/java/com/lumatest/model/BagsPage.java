@@ -9,7 +9,7 @@ public class BagsPage extends SideMenu{
     protected BagsPage(WebDriver driver) {
         super(driver);
     }
-    @Step("Click {productName} Img.")
+    @Step("Click '{productName}' Img.")
     public ProductPage clickProductImg(String productName){
         String imgXpath = productNameXpath + productName + "']";
         getDriver().findElement(By.xpath(imgXpath)).click();
