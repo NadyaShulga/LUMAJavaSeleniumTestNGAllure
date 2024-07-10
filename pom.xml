@@ -5,17 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>LumaProjectAuto</artifactId>
+    <artifactId>LUMAJAVASeleniumTestNGAllure</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <allure.version>2.24.0</allure.version>
         <aspectj.version>1.9.20.1</aspectj.version>
 
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <tests.skip>false</tests.skip>
     </properties>
 
     <dependencyManagement>
@@ -35,7 +38,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.21.0</version>
+            <version>4.22.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
@@ -44,7 +47,6 @@
             <artifactId>webdrivermanager</artifactId>
             <version>5.8.0</version>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -56,9 +58,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
-            <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -68,9 +68,16 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
+                    <skipTests>${tests.skip}</skipTests>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>xmlSuits/smoke.xml</suiteXmlFile>
+                        <suiteXmlFile>xmlSuits/chrome.xml</suiteXmlFile>
+                        <suiteXmlFile>xmlSuits/chromium.xml</suiteXmlFile>
+                        <suiteXmlFile>xmlSuits/regression.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -80,7 +87,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
@@ -90,7 +96,7 @@
                     <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
+
 </project>

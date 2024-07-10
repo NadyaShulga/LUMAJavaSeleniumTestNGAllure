@@ -1,18 +1,23 @@
 package com.lumatest.utils;
 
-import com.lumatest.base.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chromium.ChromiumOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.testng.Reporter;
 
 import java.util.Map;
 
-public class DriverUtils {
-    private static ChromeOptions chromeOptions;
+public class DriverUtils{
+
+    private static final ChromeOptions chromeOptions;
+    private static final FirefoxOptions firefoxOptions;
+    private static final ChromiumOptions<ChromeOptions> chromiumOptions;
 
     static {
         chromeOptions = new ChromeOptions();
-
         chromeOptions.addArguments("--incognito");
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--window-size=1920,1080");
@@ -22,27 +27,86 @@ public class DriverUtils {
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--allow-running-insecure-content");
         chromeOptions.addArguments("--ignore-certificate-errors");
+
+        firefoxOptions = new FirefoxOptions();
+        firefoxOptions.addArguments("--incognito");
+        firefoxOptions.addArguments("--headless");
+        firefoxOptions.addArguments("--window-size=1920,1080");
+        firefoxOptions.addArguments("--disable-gpu");
+        firefoxOptions.addArguments("--no-sandbox");
+        firefoxOptions.addArguments("--disable-dev-shm-usage");
+
+        chromiumOptions = chromeOptions;
+
     }
-//for Luma
-    public static final WebDriver createChromeDriver(WebDriver driver) {
+
+    //  for luma web app
+    private static WebDriver createChromeDriver(WebDriver driver) {
         if (driver != null) {
             driver.quit();
         }
         ChromeDriver chromeDriver = new ChromeDriver(chromeOptions);
         chromeDriver.executeCdpCommand("Network.enable", Map.of());
-        chromeDriver.executeCdpCommand("Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language", "en-US,en;q=0.9")));
+        chromeDriver.executeCdpCommand(
+                "Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language", "en-US,en;q=0.9"))
+        );
 
-        return chromeDriver;
+        return chromeDriver ;
+    }
+
+    private static WebDriver createChromiumDriver(WebDriver driver) {
+        if (driver != null) {
+            driver.quit();
+        }
+        ChromeDriver chromeDriver = new ChromeDriver((ChromeOptions) chromiumOptions);
+        chromeDriver.executeCdpCommand("Network.enable", Map.of());
+        chromeDriver.executeCdpCommand(
+                "Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language", "en-US,en;q=0.9"))
+        );
+
+        return chromeDriver ;
+    }
+
+    private static WebDriver createFirefoxDriver(WebDriver driver) {
+        if (driver != null) {
+            driver.quit();
         }
 
+        return new FirefoxDriver(firefoxOptions);
     }
-//for Open Cart
-//    public static WebDriver createFireFoxDriver(WebDriver driver) {
-//        if (driver == null) {
-//            return new FireFox();
+
+    public static WebDriver createDriver(String browser, WebDriver driver) {
+        switch(browser) {
+            case "chrome" -> {
+                return createChromeDriver(driver);
+            }
+            case "firefox" -> {
+                return createFirefoxDriver(driver);
+            }
+            case "chromium" -> {
+                return createChromiumDriver(driver);
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+    // for open car web app
+//    public static WebDriver createdChromeDriver (WebDriver driver) {
+//        if(driver == null){
+//
+//            return new ChromeDriver(chromeOptions);
 //        } else {
 //            driver.quit();
-//            return new FireFox();
+//
+//            return new ChromeDriver(chromeOptions);
 //        }
 //    }
 
+//    private void createFirefoxDriver () {
+//        if(this.driver == null){
+//           this.driver = new FirefoxDriver();
+//        }
+//    }
+}
