@@ -8,8 +8,6 @@
 </head>
 <body>
 
-<h1>LUMA Java Selenium TestNG Allure</h1>
-
 <h2>Overview</h2>
 <p>This project is a test automation framework for the LUMA application, built using Java, Selenium WebDriver, TestNG, and Allure for reporting. It aims to provide a robust and efficient way to automate the testing of the LUMA application.</p>
 
